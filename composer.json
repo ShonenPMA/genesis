@@ -1,0 +1,32 @@
+{
+    "name": "shonen/genesis",
+    "description": "Basic setup for multitenancy projects using passport and graphql",
+    "require": {
+        "laravel/framework": "^7.0",
+        "laravel/ui": "^2.1",
+        "mll-lab/laravel-graphql-playground": "^2.3",
+        "nuwave/lighthouse": "^4.16",
+        "stancl/tenancy": "^3.1",
+        "laravel/passport": "^9.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jhon Ayrton Saavedra Castañeda",
+            "email": "ayrtonsc6@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Shonen\\Genesis\\" : "src/"
+        }
+    },
+    "extra": {
+        "laravel":{
+            "providers": [
+                "Shonen\\Genesis\\GenesisServiceProvider"
+            ]
+        }
+    }
+}

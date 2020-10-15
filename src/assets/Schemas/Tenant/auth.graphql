@@ -1,0 +1,39 @@
+type AuthPayload implements GeneralResponse {
+    message: String!
+    expires_at: DateTime
+    token_name: String
+    access_token: String
+    user: User
+}
+
+type LogoutResponse {
+    status: String!
+    message: String
+}
+type RegisterResponse {
+    payload: AuthPayload
+    status: RegisterStatuses!
+}
+
+input LoginInput {
+    email: String!
+    password: String!
+}
+input RegisterInput {
+    name: String! @rules(apply: ["required", "string"])
+    email: String! @rules(apply: ["required", "email", "unique:users,email"])
+    password: String! @rules(apply: ["required", "confirmed", "min:8"])
+    password_confirmation: String!
+}
+
+enum RegisterStatuses {
+    MUST_VERIFY_EMAIL
+    SUCCESS
+}
+
+
+type Mutation {
+    login(input: LoginInput! @spread): AuthPayload! @field(resolver: "App\\Resolvers\\Tenant\\User\\LoginResolve@resolve")
+    logout: LogoutResponse! @field(resolver: "App\\Resolvers\\Tenant\\User\\LogoutResolve@resolve")
+    register(input: RegisterInput! @spread): RegisterResponse! @field(resolver: "App\\Resolvers\\Tenant\\User\\RegisterResolve@resolve")
+}
